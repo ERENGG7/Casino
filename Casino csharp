@@ -10,20 +10,18 @@ namespace IEnumerations_1._0
     {
         static void Main(string[] args)
         {
-
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             int balance = 100;
             int bet;
             int totalPriseWin = 0;
             Random rand = new Random();
-            List<string> emotikons = new List<string>() { "🥭", "🎲", "🍇", "🍋", "🍉", "🍒" };
+            List<string> emotikons = new List<string>() { "🥭", "🎲", "🍇", "🍋", "🍉", "🍒", "🎰" };
 
-
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
             while (true)
             {
+
                 Console.Clear();
                 Console.WriteLine($"Your balance: {balance}");
-                Console.WriteLine("🎰🎰🎰 FOR BIG PRISES ENTER BET 1000 OR BIGGER! 🎰🎰🎰");
                 Console.WriteLine("Enter number bigger tha your balance to quit");
                 Console.Write("Enter Bet: ");
                 try
@@ -37,26 +35,19 @@ namespace IEnumerations_1._0
                     Console.ReadKey();
                     continue;
                 }
+                if (bet <= 0)
+                {
+                    Console.WriteLine("Invalid bet!");
+                    Console.ReadKey();
+                    continue;
+                }
+                else if (bet > balance)
+                {
+                    Console.WriteLine("Not Enough bet!");
+                    Console.ReadKey();
+                    break;
+                }
 
-                 if (bet <= 0)
-                {
-                Console.WriteLine("Invalid bet!");
-                Console.ReadKey();
-                continue;
-                }
-                else if (bet >= balance)
-                {
-                Console.WriteLine("Not Enough bet!");
-                Console.ReadKey();
-                break;
-                }
-                else if (bet >= 1000)
-                {
-                emotikons.Add("🎲");
-                emotikons.Add("🎰");
-                emotikons.Add("♥");
-                }
-               
                 //Creating random for emotikons
                 int index1 = rand.Next(emotikons.Count);
                 int index2 = rand.Next(emotikons.Count);
@@ -67,69 +58,38 @@ namespace IEnumerations_1._0
                 string c = emotikons[index3];
 
                 Console.WriteLine($"|{a}|{b}|{c}|");
-                if (bet < 1000)
+
+                if (a == "🎰" && b == "🎰" && c == "🎰")
                 {
-                    if (a == b && b == c)
-                    {
-                        Console.WriteLine("😎BIG PRISE😎" + bet * 5);
-                        balance += bet * 5;
-                        totalPriseWin += bet * 5;
-                        Console.ReadKey();
-                    }
-                    else if (a == b || b == c || a == c)
-                    {
-                        Console.WriteLine("WIN PRISE: " + bet * 2);
-                        balance += bet * 2;
-                        totalPriseWin += bet * 2;
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Try Again 😓");
-                        balance -= bet;
-                        totalPriseWin -= bet;
-                        Console.ReadKey();
-                    }
+                    Console.WriteLine("JACKPOT");
+                    balance += bet * 100;
+                    totalPriseWin += bet * 100;
+                    Console.ReadKey();
+                    continue;
                 }
-                //For bet>=1000
+                else if (a == b && b == c)
+                {
+                    Console.WriteLine("😎BIG PRISE😎" + bet * 5);
+                    balance += bet * 5;
+                    totalPriseWin += bet * 5;
+                    Console.ReadKey();
+                }
+                else if (a == b || b == c || a == c)
+                {
+                    Console.WriteLine("WIN PRISE: " + bet * 2);
+                    balance += bet * 2;
+                    totalPriseWin += bet * 2;
+                    Console.ReadKey();
+                }
                 else
                 {
-                    if (a == "🎰" && b == a && c == b)
-                    {
-                        Console.WriteLine("JACKPOT " + bet * 500);
-                        balance += bet * 500;
-                        totalPriseWin += bet * 500;
-                        Console.ReadKey();
-                    }
-                    else if (a == "🎲" && b == a && c == b)
-                    {
-                        Console.WriteLine("INSANE WIN " + bet * 100);
-                        balance += bet * 100;
-                        totalPriseWin += bet * 100;
-                        Console.ReadKey();
-                    }
-                    else if (a == "♥" && b == a && c == b)
-                    {
-                        Console.WriteLine("INSANE LUCK " + bet * 50);
-                        balance += bet * 50;
-                        totalPriseWin += bet * 50;
-                        Console.ReadKey();
-                    }
-                    else if (a == "🎰" || b == "🎰" || c == "🎰")
-                    {
-                        Console.WriteLine("WIN PRISE " + bet * 10);
-                        balance += bet * 10;
-                        totalPriseWin += bet * 10;
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Try Again 😓");
-                        balance -= bet;
-                        totalPriseWin -= bet;
-                        Console.ReadKey();
-                    }
+                    Console.WriteLine("Try Again 😓");
+                    balance -= bet;
+                    totalPriseWin -= bet;
+                    Console.ReadKey();
                 }
+
+
             }
             if (totalPriseWin < 0)
             {
@@ -140,4 +100,3 @@ namespace IEnumerations_1._0
         }
     }
 }
-
