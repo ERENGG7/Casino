@@ -24,6 +24,7 @@ namespace IEnumerations_1._0
                 Console.Clear();
                 Console.WriteLine($"Your balance: {balance}");
                 Console.WriteLine("🎰🎰🎰 FOR BIG PRISES ENTER BET 1000 OR BIGGER! 🎰🎰🎰");
+                Console.WriteLine("Enter number bigger tha your balance to quit");
                 Console.Write("Enter Bet: ");
                 try
                 {
@@ -37,25 +38,24 @@ namespace IEnumerations_1._0
                     continue;
                 }
 
-                if (bet >= 1000)
+                 if (bet <= 0)
                 {
-                    emotikons.Add("🎲");
-                    emotikons.Add("🎰");
-                    emotikons.Add("♥");
-                }
-                else if (bet <= 0)
-                {
-                    Console.WriteLine("Invalid bet!");
-                    Console.ReadKey();
-                    continue;
+                Console.WriteLine("Invalid bet!");
+                Console.ReadKey();
+                continue;
                 }
                 else if (bet >= balance)
                 {
-                    Console.WriteLine("Not Enough bet!");
-                    Console.ReadKey();
-                    break;
+                Console.WriteLine("Not Enough bet!");
+                Console.ReadKey();
+                break;
                 }
-
+                else if (bet >= 1000)
+                {
+                emotikons.Add("🎲");
+                emotikons.Add("🎰");
+                emotikons.Add("♥");
+                }
                
                 //Creating random for emotikons
                 int index1 = rand.Next(emotikons.Count);
